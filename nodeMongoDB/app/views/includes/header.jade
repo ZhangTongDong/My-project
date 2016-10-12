@@ -1,0 +1,49 @@
+.container
+    .row
+        .page-header(style='padding-top:50px')
+            h1 #{title}
+            small 重度科幻迷
+.navbar.navbar-default.navbar-fixed-top
+    .container
+        .navbar-header
+            a.navbar-brand(href='/')重度科幻迷
+        if user
+            p.navbar-text.navbar-right
+                span 欢迎您，#{user.name}
+                span &nbsp|&nbsp
+                a.navbar-link(href='/logout')退出
+        else
+            p.navbar-text.navbar-right
+                a.navbar-link(href='#',data-toggle='modal',data-target='#sigupModal')注册
+                span &nbsp|&nbsp
+                a.navbar-link(href='#',data-toggle='modal',data-target='#siginModal')登录
+#sigupModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method='post',action='user/sigup')
+                .modal-header 注册
+                .modal-body
+                    .form-group
+                        label(for='sigupName')用户名
+                        input#sigupName.form-control(name='user[name]',type='text')
+                    .form-group
+                        label(for='sigupPassword')密码
+                        input#sigupPassword.form-control(name='user[password]',type='text')
+                .modal-footer
+                    button.btn.btn-default(type='button',data-dismiss='modal')关闭
+                    button.btn.btn-success(type='submit')注册
+#siginModal.modal.fade
+    .modal-dialog
+        .modal-content
+            form(method='post',action='user/sigin')
+                .modal-header 登录
+                .modal-body
+                    .form-group
+                        label(for='siginName')用户名
+                        input#siginName.form-control(name='user[name]',type='text')
+                    .form-group
+                        label(for='siginPassword')密码
+                        input#siginPassword.form-control(name='user[password]',type='text')
+                .modal-footer
+                    button.btn.btn-default(type='button',data-dismiss='modal')关闭
+                    button.btn.btn-success(type='submit')登录
