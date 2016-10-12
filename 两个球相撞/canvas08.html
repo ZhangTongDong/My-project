@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+ <head>
+  <title> new document </title>
+	<meta charset="utf-8"/>
+	<link rel="stylesheet" type="text/css" href=""/>
+	<style>
+		canvas{
+			background:#000;
+		}
+	</style>
+ </head>
+ <body>
+	<canvas id='c1' width='600' height='300'></canvas>	
+
+
+
+	<script>
+		var one={
+			x:50,
+			y:150,
+			xs:10,
+			ys:10,
+			radius:36,
+
+
+			left:0,
+			top:0
+		}
+		var two={
+			x:400,
+			y:150,
+			xs:-10,
+			ys:-10,
+			radius:36
+
+
+			
+		}
+		var ctx=c1.getContext('2d');
+		
+		setInterval(function(){
+			update();
+			
+		},40);
+
+		function update(){
+			//console.log(one.xs)
+			//console.log(one.x);
+			ctx.clearRect(0,0,c1.width,c1.height);
+			ctx.beginPath();
+			ctx.arc(one.x,one.y,one.radius,0,2*Math.PI);
+				ctx.stroke();
+			ctx.closePath();
+			ctx.beginPath();
+			ctx.arc(two.x,two.y,two.radius,0,2*Math.PI);
+			var linearGradient = ctx.createLinearGradient(0,0, 0, 500); //x1,y1, x2,y2
+					linearGradient.addColorStop(0, '#f00'); //pos,c
+					linearGradient.addColorStop(0.5, '#ff0'); 
+					linearGradient.addColorStop(1, '#0f0');
+			ctx.strokeStyle=linearGradient;
+			ctx.lineWidth=10;
+			
+
+			
+			ctx.stroke();
+			
+			one.x+=one.xs;
+			one.y+=one.ys;
+			
+
+			two.x+=two.xs;
+			two.y+=two.ys;
+			
+			if(one.x>=c1.width-one.radius){
+				one.x=c1.width-one.radius;
+				one.xs=-one.xs
+			}
+			if(one.x<=one.radius){
+				one.x=one.radius;
+				one.xs=-one.xs
+			}
+
+			if(one.y>=c1.height-one.radius){
+				one.y=c1.height-one.radius;
+				one.ys=-one.ys;
+				
+			}
+			if(one.y<=one.radius){
+				one.y=one.radius;
+				one.ys=-one.ys;
+			}
+
+			if(two.x>=c1.width-two.radius){
+				two.x=c1.width-two.radius;
+				two.xs=-two.xs
+			}
+			if(two.x<=two.radius){
+				two.x=two.radius;
+				two.xs=-two.xs
+			}
+
+			if(two.y>=c1.height-two.radius){
+				two.y=c1.height-two.radius;
+				two.ys=-one.ys;
+				
+			}
+			if(two.y<=two.radius){
+				two.y=two.radius;
+				two.ys=-two.ys;
+			}
+			var peng=(one.x-two.x)*(one.x-two.x)+(one.y-two.y)*(one.y-two.y);
+			if(Math.sqrt(peng)-(one.radius+two.radius)<20){
+				one.xs=-one.xs;
+				one.ys=-one.ys;
+				two.xs=-two.xs;
+				two.ys=-two.ys;
+			}
+
+		}
+		
+
+
+	</script>
+ </body>
+</html>
